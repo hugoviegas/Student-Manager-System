@@ -1,11 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const studentsController = require("../controllers/studentsController");
+import { Router } from "express";
+const router = Router();
+import {
+  getAllStudents,
+  createStudent,
+  updateStudent,
+  deleteStudent,
+} from "../controllers/studentsController.js";
 
 // Rotas CRUD para alunos
-router.get("/", studentsController.getAllStudents);
-router.post("/", studentsController.createStudent);
-router.put("/:id", studentsController.updateStudent);
-router.delete("/:id", studentsController.deleteStudent);
+router.get("/", getAllStudents);
+router.post("/", createStudent);
+router.put("/:id", updateStudent);
+router.delete("/:id", deleteStudent);
 
-module.exports = router; // Exporta as rotas para serem usadas no app.js
+export default router; // Exporta as rotas para serem usadas no app.js

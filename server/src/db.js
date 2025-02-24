@@ -1,17 +1,24 @@
-const { Pool } = require("pg");
+import pkg from "pg";
+import dotenv from "dotenv";
 
-require("dotenv").config();
+const { Pool } = pkg;
 
-// Conexão com o banco de dados
+// Carrega as variáveis de ambiente definidas no arquivo .env
+dotenv.config();
+
+// Cria uma nova instância de Pool usando as configurações do .env
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  user: process.env.DB_USER, // Usuário configurado no .env
+  host: process.env.DB_HOST, // Host do banco, normalmente "localhost"
+  database: process.env.DB_DATABASE, // Nome do banco de dados
+  password: process.env.DB_PASSWORD, // Senha do usuário do banco
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432, // Porta do PostgreSQL, geralmente 5432
 });
 
-// Exporta o pool de conexão
-module.exports = {
-  query: (text, params) => pool.query(text, params),
-};
+// Ouvinte para confirmar que a conexão foi estabelecida
+pool.on("connect", () => {
+  console.log("Conexão com o banco de dados estabelecida com sucesso!");
+});
+
+// Exporta uma função "query" que facilita a execução de comandos SQL
+export const query = (text, params) => pool.query(text, params);

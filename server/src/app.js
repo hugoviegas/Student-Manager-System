@@ -1,15 +1,19 @@
-const express = require("express"); // Importar o express
-const app = express(); // Inicializar o express
-const port = 3000; // Porta padrão
+import express from "express";
+import authRoutes from "./routes/authRoutes.js";
+import studentRoutes from "./routes/students.js"; // Using ES module import
 
-// Middleware para interpretar JSON no corpo das requisições
+const app = express();
 app.use(express.json());
 
+const port = 3000;
+
 // Rotas principais
-const studentRoutes = require("./routes/students");
 app.use("/students", studentRoutes); // Rota para alunos
 
 // Iniciar o servidor
 app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`); // Mensagem de sucesso
+  console.log(`Servidor rodando em http://localhost:${port}`);
 });
+
+// Importar as rotas de autenticação
+app.use("/auth", authRoutes);

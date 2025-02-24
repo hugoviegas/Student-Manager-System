@@ -1,4 +1,4 @@
-import { query } from "../db.js";
+import { query } from "../config/db.js";
 import { hash, compare } from "bcryptjs";
 import pkg from "jsonwebtoken";
 const { sign } = pkg;

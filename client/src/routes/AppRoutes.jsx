@@ -1,8 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
-import StudentsList from "../pages/students/StudentsList";
+import NotFound from "../pages/NotFound"; // Página 404
 
 const AppRoutes = () => {
   return (
@@ -10,7 +10,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/students" element={<StudentsList />} />
+        <Route path="*" element={<NotFound />} /> {/* Rota para 404 */}
       </Routes>
     </Router>
   );

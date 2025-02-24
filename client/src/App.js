@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import express from "express";
+import path from "path";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const app = express();
+const port = 3000;
 
-export default App;
+// Resolver o caminho absoluto
+const __dirname = path.resolve();
+
+// Servir os arquivos estáticos da pasta public
+app.use(express.static(path.join(__dirname, "../../client/public/")));
+
+// Redirecionar todas as rotas desconhecidas para o React
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../client/public/", "index.html"));
+});
+
+// Iniciar o servidor
+app.listen(port, () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
+});

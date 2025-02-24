@@ -8,19 +8,24 @@ app.use(express.json());
 
 const port = 3000;
 
-// Resolver o caminho absoluto corretamente no ES Modules
+// Resolver o caminho absoluto
 const __dirname = path.resolve();
 
-// Servir os arquivos estáticos do React
+// Servir os arquivos estáticos da pasta build (React)
 app.use(express.static(path.join(__dirname, "client/build")));
 
-// Rotas principais
-app.use("/students", studentRoutes); // Rota para alunos
-app.use("/auth", authRoutes); // Rota para autenticação
+// Rotas da API
+app.use("/auth", authRoutes);
+app.use("/students", studentRoutes);
 
-// Redirecionar todas as rotas desconhecidas para o React
+// Redirecionar todas as outras rotas para o index.html (React)
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+  if (
+    !req.originalUrl.startsWith("/auth") &&
+    !req.originalUrl.startsWith("/students")
+  ) {
+    res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+  }
 });
 
 // Iniciar o servidor

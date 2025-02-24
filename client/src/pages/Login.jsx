@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,10 @@ const Login = () => {
       localStorage.setItem("token", response.data.token); // Armazena o token JWT no navegador
       navigate("/dashboard"); // Redireciona para o dashboard após login bem-sucedido
     } catch (error) {
-      console.error("Erro ao fazer login:", error.response.data.message);
+      console.error(
+        "Erro ao fazer login:",
+        error.response?.data?.message || error.message
+      );
     }
   };
 
@@ -30,12 +33,14 @@ const Login = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <input
           type="password"
           placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <button type="submit">Entrar</button>
       </form>

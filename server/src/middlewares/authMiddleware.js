@@ -1,4 +1,5 @@
-import { verify } from "jsonwebtoken";
+import pkg from "jsonwebtoken";
+const { verify } = pkg;
 
 // Middleware de autenticação
 export default (req, res, next) => {

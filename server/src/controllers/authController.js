@@ -66,3 +66,13 @@ export async function login(req, res) {
     res.status(500).send("Erro ao fazer login");
   }
 }
+
+// Obter informações do usuário autenticado
+export const getMe = (req, res) => {
+  // O authMiddleware deve ter adicionado o objeto `user` em req.user
+  if (!req.user) {
+    return res.status(401).json({ message: "Usuário não autenticado" });
+  }
+
+  return res.status(200).json(req.user);
+};

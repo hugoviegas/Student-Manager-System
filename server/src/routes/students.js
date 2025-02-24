@@ -8,4 +8,4 @@ router.post("/", studentsController.createStudent);
 router.put("/:id", studentsController.updateStudent);
 router.delete("/:id", studentsController.deleteStudent);
 
-module.exports = router;
+module.exports = router; // Exporta as rotas para serem usadas no app.js

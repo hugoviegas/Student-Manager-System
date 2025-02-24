@@ -2,6 +2,7 @@ const { Pool } = require("pg");
 
 require("dotenv").config();
 
+// Conexão com o banco de dados
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
@@ -10,6 +11,7 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+// Exporta o pool de conexão
 module.exports = {
   query: (text, params) => pool.query(text, params),
 };
